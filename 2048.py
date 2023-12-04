@@ -1,7 +1,7 @@
 from random import randint
 import keyboard
 
-def print_grid_2048(Gametab):   #prend le tableau de jeu et le convertis en grille a afficher
+def print_grid_2048():   #prend le tableau de jeu et le convertis en grille a afficher
     printtab = []
     for i in range(len(Gametab)):
         if Gametab[i] == "0":            
@@ -25,18 +25,20 @@ def print_grid_2048(Gametab):   #prend le tableau de jeu et le convertis en gril
     print("\t________|________|________|________\n\t        |        |        |\n\t  {}  |  {}  |  {}  |  {}  ".format(printtab[8], printtab[9], printtab[10],printtab[11]))
     print("\t________|________|________|________\n\t        |        |        |\n\t  {}  |  {}  |  {}  |  {}  ".format(printtab[12], printtab[13], printtab[14],printtab[15]))
     print("\t        |        |        |\n")
-
+    
+def Loose(Game):
+    print("tié mové")
+    Game = False
+    print(print_grid_2048)
+    
+    
 
 
 def left():
     for i in range(size):
         for j in range(size):
             val = Gametab[(i*size) + j]
-            if j == 0:
-                pass
-            elif val == "0":
-                pass
-            elif not(val == "0"):
+            if not(val == "0"):
                 pos_to_verif = j - 1
                 while Gametab[(i*size) + pos_to_verif] == "0":
                     pos_to_verif = pos_to_verif - 1
@@ -69,49 +71,56 @@ def up():
 def down():
     pass
 
-
-
-def addnumber(size):
+def chck_pos_libre(pos_libre):
+    pos_libre.clear()
+    for i in range(len(Gametab)-1):
+        if Gametab[i] == "0":
+            pos_libre.append(i)
+    if pos_libre == []:
+        return False
+    else:
+        return True
+    
+def addnumber(pos_libre):
+    print(pos_libre)
+    pos = pos_libre[ randint(0,len(pos_libre) - 1) ]
     
     _2or4 = randint(1,10)
-    pos = randint(0,(size*size)-1)
-    while not(Gametab[pos] == "0"):
-        pos = randint(0,(size*size)-1)
-    
+    print(pos)
     if _2or4 == 1:
         Gametab[pos] = 4
     else:
         Gametab[pos] = 2
     
-
 def create_grid(size):
     for i in range(size*size):
         Gametab.append("0")
 
-
+def turn(Game):
+    pos_libre = []
+    if not(chck_pos_libre(pos_libre)):
+        Game = Loose()
+    addnumber(pos_libre)
+    print_grid_2048()
 
 size = 4
 Gametab=[]
 create_grid(size)
-
-while True:
+Game = True
+while Game == True:
     event = keyboard.read_event()
     if event.event_type == keyboard.KEY_DOWN and event.name == 'q' :    #gauche
         left()
-        addnumber(size)
-        print_grid_2048(Gametab)
+        turn(Game)
         
     if event.event_type == keyboard.KEY_DOWN and event.name == 'd' :    #droite
         right()
-        addnumber(size)
-        print_grid_2048(Gametab)
+        turn(Game)
         
     if event.event_type == keyboard.KEY_DOWN and event.name == 'z' :    #haut
         up()
-        addnumber(size)
-        print_grid_2048(Gametab)
+        turn(Game)
         
     if event.event_type == keyboard.KEY_DOWN and event.name == 'space' :    #bas
         down()
-        addnumber(size)
-        print_grid_2048(Gametab)
+        turn(Game)
