@@ -1,3 +1,6 @@
+from random import randint
+import keyboard
+
 def print_grid_2048(Gametab):   #prend le tableau de jeu et le convertis en grille a afficher
     val = []
     for i in range(len(Gametab)):
@@ -18,11 +21,34 @@ def print_grid_2048(Gametab):   #prend le tableau de jeu et le convertis en gril
     print("\t________|________|________|________\n\t        |        |        |\n\t  {}  |  {}  |  {}  |  {}  ".format(val[12], val[13], val[14],val[15]))
     print("\t        |        |        |\n")
     
-Gametab=[]
 def create_grid(Gametab):
     size = 4
     for i in range(size*size):
         Gametab.append(2000)
+
+    
+while True:
+    event = keyboard.read_event()
+    if event.event_type == keyboard.KEY_DOWN and event.name == 'q' :    #gauche
+        print('q was pressed')
+        Gametab=[]
+        create_grid(Gametab)
+        print_grid_2048(Gametab)
         
-create_grid(Gametab)
-print_grid_2048(Gametab)
+    if event.event_type == keyboard.KEY_DOWN and event.name == 'd' :    #droite
+        print('d was pressed')
+        Gametab=[]
+        create_grid(Gametab)
+        print_grid_2048(Gametab)
+        
+    if event.event_type == keyboard.KEY_DOWN and event.name == 'z' :    #haut
+        print('z was pressed')
+        Gametab=[]
+        create_grid(Gametab)
+        print_grid_2048(Gametab)
+        
+    if event.event_type == keyboard.KEY_DOWN and event.name == 'space' :    #bas
+        print('espace was pressed')
+        Gametab=[]
+        create_grid(Gametab)
+        print_grid_2048(Gametab)
