@@ -1,8 +1,10 @@
 from random import randint
 import keyboard
-SIEZ: int = 4
+import os
+from time import *
+SIEZ: int = 16
 
-def print_grid_2048(Gametab : list[int]):   #prend le tableau de jeu et le convertis en grille a afficher
+def print_grid_2048(Gametab : list[int]):
     printtab : list = []
     for i in range(len(Gametab)):
         if Gametab[i] == 0:            
@@ -21,28 +23,38 @@ def print_grid_2048(Gametab : list[int]):   #prend le tableau de jeu et le conve
             printtab[i] = (" " + str(printtab[i]) + "")
         else:
             printtab[i] = ("" + str(printtab[i]) + "")
-            
-    print("\n\t")
+    os.system("cls")
     
+    print("\n"*4)
     for j in range(SIEZ-1):
+        print("\t"*7,end="")
         for _ in range (SIEZ-1):
             print("        |" , end = "")
-        print("\t")
+
+        print("\n"+"\t"*7,end="")
         for i in range (SIEZ - 1):
-            print("  {}  |".format(printtab[j*SIEZ + i]), end = "")
-        print("  {}  ".format(printtab[j*SIEZ + SIEZ-1]))
+            print("  {}  |".format(printtab[get1DCoord(j,i)]), end = "")
+        print("  {}  ".format(printtab[get1DCoord(j,SIEZ-1)]))
+
+        print("\t"*7,end="")
         for _ in range (SIEZ - 1):
             print("________|" , end = "")
         print("________")
+
+    print("\t"*7,end="")
     for _ in range (SIEZ-1):
         print("        |" , end = "")
-    print("\t")
+        
+    print("\n"+"\t"*7,end="")
     for i in range (SIEZ - 1):
-        print("  {}  |".format(printtab[j*SIEZ + i]), end = "")
-    print("  {}  ".format(printtab[j*SIEZ + SIEZ-1]))
+        print("  {}  |".format(printtab[get1DCoord(SIEZ-1,i)]), end = "")
+    print("  {}  ".format(printtab[get1DCoord(SIEZ-1,SIEZ-1)]))
+
+    print("\t"*7,end="")
     for _ in range (SIEZ-1):
         print("        |" , end = "")
-    print("\n\t")
+        
+    print()
 
 def left(Gametab : list[int]) -> int:
     c : int = 0         #column
@@ -55,6 +67,7 @@ def left(Gametab : list[int]) -> int:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r, c+1)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r, c+1))
                 setValue(Gametab, r, c+1, 0)
+                nb_modif += 1
                 if c>0:
                     c -= 1
             else:
@@ -63,11 +76,13 @@ def left(Gametab : list[int]) -> int:
             if getValue(Gametab, r, i)==getValue(Gametab, r, i-1):
                 setValue(Gametab, r, i-1, 2*getValue(Gametab, r, i))
                 setValue(Gametab, r, i, 0)
+                nb_modif += 1
         c=0
         while c !=SIEZ-1:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r, c+1)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r, c+1))
                 setValue(Gametab, r, c+1, 0)
+                nb_modif += 1
                 if c>0:
                     c -= 1
             else:
@@ -86,6 +101,7 @@ def right(Gametab : list[int]) -> int:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r, c-1)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r, c-1))
                 setValue(Gametab, r, c-1, 0)
+                nb_modif += 1
                 if c<SIEZ-1:
                     c += 1
             else:
@@ -94,11 +110,13 @@ def right(Gametab : list[int]) -> int:
             if getValue(Gametab, r, i)==getValue(Gametab, r, i+1):
                 setValue(Gametab, r, i+1, 2*getValue(Gametab, r, i))
                 setValue(Gametab, r, i, 0)
+                nb_modif += 1
         c=SIEZ-1
         while c !=0:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r, c-1)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r, c-1))
                 setValue(Gametab, r, c-1, 0)
+                nb_modif += 1
                 if c<SIEZ-1:
                     c += 1
             else:
@@ -117,6 +135,7 @@ def up(Gametab : list[int]) -> int:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r+1, c)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r+1, c))
                 setValue(Gametab, r+1, c, 0)
+                nb_modif += 1
                 if r>0:
                     r -= 1
             else:
@@ -125,11 +144,13 @@ def up(Gametab : list[int]) -> int:
             if getValue(Gametab, i, c)==getValue(Gametab, i-1, c):
                 setValue(Gametab, i-1, c, 2*getValue(Gametab, i, c))
                 setValue(Gametab, i, c, 0)
+                nb_modif += 1
         r=0
         while r !=SIEZ-1:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r+1, c)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r+1, c))
                 setValue(Gametab, r+1, c, 0)
+                nb_modif += 1
                 if r>0:
                     r -= 1
             else:
@@ -147,6 +168,7 @@ def down(Gametab : list[int]) -> int:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r-1, c)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r-1, c))
                 setValue(Gametab, r-1, c, 0)
+                nb_modif += 1
                 if r<SIEZ-1:
                     r += 1
             else:
@@ -155,11 +177,13 @@ def down(Gametab : list[int]) -> int:
             if getValue(Gametab, i, c)==getValue(Gametab, i+1, c):
                 setValue(Gametab, i+1, c, 2*getValue(Gametab, i, c))
                 setValue(Gametab, i, c, 0)
+                nb_modif += 1
         r=SIEZ-1
         while r !=0:
             if getValue(Gametab, r, c)==0 and getValue(Gametab, r-1, c)!=0:
                 setValue(Gametab, r, c, getValue(Gametab, r-1, c))
                 setValue(Gametab, r-1, c, 0)
+                nb_modif += 1
                 if r<SIEZ-1:
                     r += 1
             else:
@@ -201,33 +225,43 @@ def turn(nb_modif : int , Gametab : list[int]) -> bool:
     pos_libre = []
     if not(chck_pos_libre(pos_libre , Gametab)) and nb_modif == 0:
         return False
-    addnumber(pos_libre, Gametab)
+    if nb_modif > 0:
+        addnumber(pos_libre, Gametab)
     print_grid_2048(Gametab)
+    
     return True
 
 def __main__():
-    Gametab=[]
+    Gametab = []
+    nb_modif = 1
     create_grid(Gametab)
-    nb_modif=0
     turn(nb_modif, Gametab)
     Game = True
     while Game == True:
         event = keyboard.read_event()
         if event.event_type == keyboard.KEY_DOWN and (event.name == 'q' or event.name == 'Q') :    #gauche
+            chrono = time()
             nb_modif = left(Gametab)
             Game = turn(nb_modif, Gametab)
+            print(time() - chrono)
             
         if event.event_type == keyboard.KEY_DOWN and (event.name == 'd' or event.name == 'D') :    #droite
+            chrono = time()
             nb_modif = right(Gametab)
             Game = turn(nb_modif, Gametab)
+            print(time() - chrono)
             
         if event.event_type == keyboard.KEY_DOWN and (event.name == 'z' or event.name == 'Z') :    #haut
+            chrono = time()
             nb_modif =  up(Gametab)
             Game = turn(nb_modif, Gametab)
+            print(time() - chrono)
             
-        if event.event_type == keyboard.KEY_DOWN and (event.name == 's' or event.name == 'S') :    #bas
+        if event.event_type == keyboard.KEY_DOWN and (event.name == 's' or event.name == 'S' or event.name == 'space') :    #bas
+            chrono = time()
             nb_modif = down(Gametab)
             Game = turn(nb_modif, Gametab)
+            print(time() - chrono)
         
     print("tiémové")
 
