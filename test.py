@@ -1,62 +1,91 @@
 import random
-siez = 4
+from math import *
+
 liste=[0,2,4,8]
-l = [0,2,2,4,8,4,4,0,0,2,2,2,2,4,4,0]
+Gametab = [0,2,2,4,8,4,4,0,0,2,2,2,2,4,4,0]
+siez = int(sqrt(len(Gametab)))
 # random.choice(liste) for _ in range(siez**2)
-j=0
+r=0
+c=0
 for i in range(siez):
-    print(l[i*siez:siez*(i+1)])
+    print(Gametab[i*siez:siez*(i+1)])
 print("\n")
 
 
-def droite(j):
-    while j < siez:
-        i=siez-1
-        while i !=0:
-            if l[siez*j+i]==0 and l[siez*j+i-1]!=0:
-                l[siez*j+i],l[siez*j+i-1]=l[siez*j+i-1],l[siez*j+i]
-                if i<siez-1:
-                    i += 1
+def droite(r):
+    while r < siez:
+        c=siez-1
+        while c !=0:
+            if Gametab[siez*r+c]==0 and Gametab[siez*r+c-1]!=0:
+                Gametab[siez*r+c],Gametab[siez*r+c-1]=Gametab[siez*r+c-1],Gametab[siez*r+c]
+                if c<siez-1:
+                    c += 1
             else:
-                i-= 1
-        for w in range(siez-2,-1,-1):
-            if l[siez*j+w]==l[siez*j+w+1]:
-                l[siez*j+w+1],l[siez*j+w]=2*l[siez*j+w],0
-        i=siez-1
-        while i !=0:
-            if l[siez*j+i]==0 and l[siez*j+i-1]!=0:
-                l[siez*j+i],l[siez*j+i-1]=l[siez*j+i-1],l[siez*j+i]
-                if i<siez-1:
-                    i += 1
+                c-= 1
+        for i in range(siez-2,-1,-1):
+            if Gametab[siez*r+i]==Gametab[siez*r+i+1]:
+                Gametab[siez*r+i+1],Gametab[siez*r+i]=2*Gametab[siez*r+i],0
+        c=siez-1
+        while c !=0:
+            if Gametab[siez*r+c]==0 and Gametab[siez*r+c-1]!=0:
+                Gametab[siez*r+c],Gametab[siez*r+c-1]=Gametab[siez*r+c-1],Gametab[siez*r+c]
+                if c<siez-1:
+                    c += 1
             else:
-                i-= 1
-        j+=1
-    return l
+                c-= 1
+        r+=1
+    return Gametab
 
 
-def gauche(j):
-    while j < siez:
-        i=0
-        while i !=siez-1:
-            if l[siez*j+i]==0 and l[siez*j+i+1]!=0:
-                l[siez*j+i],l[siez*j+i+1]=l[siez*j+i+1],l[siez*j+i]
-                if i>0:
-                    i -= 1
+def gauche(r):
+    while r < siez:
+        c=0
+        while c !=siez-1:
+            if Gametab[siez*r+c]==0 and Gametab[siez*r+c+1]!=0:
+                Gametab[siez*r+c],Gametab[siez*r+c+1]=Gametab[siez*r+c+1],Gametab[siez*r+c]
+                if c>0:
+                    c -= 1
             else:
-                i+= 1
-        for w in range(1,siez):
-            if l[siez*j+w]==l[siez*j+w-1]:
-                l[siez*j+w-1],l[siez*j+w]=2*l[siez*j+w],0
-        i=0
-        while i !=siez-1:
-            if l[siez*j+i]==0 and l[siez*j+i+1]!=0:
-                l[siez*j+i],l[siez*j+i+1]=l[siez*j+i+1],l[siez*j+i]
-                if i>0:
-                    i -= 1
+                c+= 1
+        for i in range(1,siez):
+            if Gametab[siez*r+i]==Gametab[siez*r+i-1]:
+                Gametab[siez*r+i-1], Gametab[siez*r+i] = 2*Gametab[siez*r+i], 0
+        c=0
+        while c !=siez-1:
+            if Gametab[siez*r+c]==0 and Gametab[siez*r+c+1]!=0:
+                Gametab[siez*r+c],Gametab[siez*r+c+1]=Gametab[siez*r+c+1],Gametab[siez*r+c]
+                if c>0:
+                    c -= 1
             else:
-                i+= 1
-        j+=1
-    return l
+                c+= 1
+        r+=1
+    return Gametab
 
 
-print(gauche(j))
+def haut(c):
+    while c < siez:
+        r=0
+        while r !=siez-1:
+            if Gametab[siez*c+r]==0 and Gametab[siez*(c+1)+r]!=0:
+                Gametab[siez*c+r],Gametab[siez*(c+1)+r]=Gametab[siez*(c+1)+r],Gametab[siez*c+r]
+                if r>0:
+                    r -= 1
+            else:
+                r+= 1
+        for i in range(1,siez):
+            if Gametab[siez*c+i]==Gametab[siez*c+i-1]:
+                Gametab[siez*c+i-1], Gametab[siez*c+i] = 2*Gametab[siez*c+i], 0
+        r=0
+        while r !=siez-1:
+            if Gametab[siez*c+r]==0 and Gametab[siez*(c+1)+r]!=0:
+                Gametab[siez*c+r],Gametab[siez*(c+1)+r]=Gametab[siez*(c+1)+r],Gametab[siez*c+r]
+                if r>0:
+                    r -= 1
+            else:
+                r+= 1
+        c+=1
+    for i in range(siez):
+        print(Gametab[i*siez:siez*(i+1)])
+
+
+print(haut(r))
