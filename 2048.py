@@ -73,7 +73,7 @@ def down():
 
 def chck_pos_libre(pos_libre):
     pos_libre.clear()
-    for i in range(len(Gametab)-1):
+    for i in range(len(Gametab)):
         if Gametab[i] == "0":
             pos_libre.append(i)
     if pos_libre == []:
@@ -83,7 +83,7 @@ def chck_pos_libre(pos_libre):
     
 def addnumber(pos_libre):
     print(pos_libre)
-    pos = pos_libre[ randint(0,len(pos_libre) - 1) ]
+    pos = pos_libre[ randint(0,len(pos_libre)-1) ]
     
     _2or4 = randint(1,10)
     print(pos)
