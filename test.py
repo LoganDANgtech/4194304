@@ -3,9 +3,7 @@ import keyboard
 import os
 from time import *
 from _2048txt import print2048
-SIEZ: int = 15
-
-# 57 \n /// sqrt = 9*\n /// 1*\n oblg /// 1 lignes == 3 * \n
+SIEZ: int = 4
 
 def print_grid_2048(Gametab : list[int]):
     os.system("cls")
@@ -66,7 +64,7 @@ def print_grid_2048(Gametab : list[int]):
     for _ in range (SIEZ-1):
         print("         |" , end = "")
 
-    print()
+    print("\n"*(opretation_n+9))
 
 def left(Gametab : list[int]) -> int:
     c : int = 0         #column
