@@ -37,10 +37,10 @@ def print_grid_2048(Gametab : list[int]):
 
     print("\n"*opretation_n)
     print(" "*(opretation_t),end="")
-    print(" _________" , end = "")
+    print("¸_________" , end = "")
     for _ in range (SIEZ-1):
         print("__________" , end = "")
-    print(''+" "*(opretation_t))
+    print('¸'+" "*(opretation_t))
     for j in range(SIEZ):
         print(" "*(opretation_t),end="")
         for _ in range (SIEZ):
