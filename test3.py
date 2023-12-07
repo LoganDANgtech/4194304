@@ -1,4 +1,4 @@
-from random import randint
+from random import random , randint
 import keyboard
 import os
 from time import *
@@ -255,12 +255,14 @@ def chck_pos_libre(pos_libre : list, Gametab : list[int]) -> bool:
     
 def addnumber(pos_libre : list, Gametab : list[int]) -> list:
     pos = pos_libre[ randint(0,len(pos_libre) - 1) ]
-    _2or4 = randint(1,10)
+    
+    luk = 0.1  #chance for a four to appear (in percent) 
+    _2or4 = random()
 
-    if _2or4 == 1:
+    if _2or4 <= luk :
         Gametab[pos] = 4
     else:
-        Gametab[pos] = 4
+        Gametab[pos] = 2
 
 
 def get1DCoord(i : int, j : int) -> int:

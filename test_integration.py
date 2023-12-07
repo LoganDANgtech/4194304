@@ -1,51 +1,87 @@
-tests : dict = {
-    "fusion simple":
-    [
+tests : dict[list[list[int],list[int]]] = {        #1: nom de la situation, 2: situation , 3: solution attendue
+    "fusion simple(haut)":
+    [[
         2,0,0,0,
         2,0,0,0,
         0,0,0,0,
         0,0,0,0
-    ]
-    ,"non fusion":
-    [
+    ],[
+        4,0,0,0,
+        0,0,0,0,
+        0,0,0,0,
+        0,0,0,0
+    ]]
+    ,"non fusion(gauche)":
+    [[
         4,2,0,0,
         0,0,0,0,
         0,0,0,0,
         0,0,0,0
-    ]
-    ,"non fusion éloignée":
-    [
+    ],[
+        4,2,0,0,
+        0,0,0,0,
+        0,0,0,0,
+        0,0,0,0
+    ]]
+    ,"non fusion éloignée(droite)":
+    [[
         0,2,0,4,
         0,0,0,0,
         0,0,0,0,
         0,0,0,0
-    ]
-    ,"fusion éloignée":
-    [
+    ],[
+        0,0,2,4,
+        0,0,0,0,
+        0,0,0,0,
+        0,0,0,0
+    ]]
+    ,"fusion éloignée(bas)":
+    [[
         2,0,0,0,
         0,0,0,0,
         0,0,0,0,
         2,0,0,0
-    ]
-    ,"double fusion":
-    [
+    ],
+     [
+        0,0,0,0,
+        0,0,0,0,
+        0,0,0,0,
+        4,0,0,0
+    ]]
+    ,"double fusion(haut)":
+    [[
         0,0,0,2,
         0,0,0,2,
         0,0,0,2,
         0,0,0,2
-    ]
-    ,"decalage vers le bas":
-    [
+    ],[
+        0,0,0,4,
+        0,0,0,4,
+        0,0,0,0,
+        0,0,0,0
+    ]]
+    ,"decalage vers le bas(bas)":
+    [[
         0,0,0,2,
         0,0,0,4,
         0,0,0,2,
         0,0,0,0
-    ]
-    ,"décalage vers la gauche et fusion":
-    [
+    ],[
+        0,0,0,0,
+        0,0,0,2,
+        0,0,0,4,
+        0,0,0,2
+    ]]
+    ,"décalage vers la gauche et fusion(gauche)":
+    [[
         0,0,0,0,
         0,0,0,0,
         0,0,0,0,
         0,4,2,2
-    ]
+    ],[
+        4,0,0,0,
+        0,0,0,0,
+        0,0,0,0,
+        4,4,0,0
+    ]]
     }
