@@ -18,7 +18,14 @@ def print_grid_2048(Gametab : list[int]):
         if printtab[i] == "     ": 
             pass
         elif int(printtab[i]) % 10 == int(printtab[i]):
-            printtab[i] = ("  " + str(printtab[i]) + "  ")
+            code_couleur : str = ""
+            if int(printtab[i]) >= 2:
+                code_couleur = "\x1b[48;2;255;255;204m \x1b[30m"
+            if int(printtab[i]) >= 4:
+                code_couleur = "\x1b[48;2;255;219;184m \x1b[30m"
+            if int(printtab[i]) >= 8:
+                code_couleur = "\x1b[48;2;255;153;51m \x1b[30m"
+            printtab[i] = (" " + code_couleur + str(printtab[i]) +"\x1b[39m \x1b[49m"+ " " )
         elif int(printtab[i]) % 100 == int(printtab[i]):
             printtab[i] = (" " + str(printtab[i]) + "  ")
         elif int(printtab[i]) % 1000 == int(printtab[i]):
