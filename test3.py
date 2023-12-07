@@ -10,50 +10,70 @@ def print_grid_2048(Gametab : list[int]):
     printtab : list = []
     for i in range(len(Gametab)):
         if Gametab[i] == 0:            
-            printtab.append("     ")
+            printtab.append("         ")
         else:
             printtab.append(Gametab[i])
             
     for i in range(len(Gametab)):
-        if printtab[i] == "     ": 
+        code_couleur : str = ""
+        if printtab[i] == "         ": 
             pass
         elif int(printtab[i]) % 10 == int(printtab[i]):
-            code_couleur : str = ""
-            if int(printtab[i]) >= 2:
-                code_couleur = "\x1b[48;2;255;255;204m \x1b[30m"
-            if int(printtab[i]) >= 4:
-                code_couleur = "\x1b[48;2;255;219;184m \x1b[30m"
-            if int(printtab[i]) >= 8:
-                code_couleur = "\x1b[48;2;255;153;51m \x1b[30m"
-            printtab[i] = (" " + code_couleur + str(printtab[i]) +"\x1b[39m \x1b[49m"+ " " )
+            if int(printtab[i]) <= 2:
+                code_couleur = "\x1b[48;2;238;228;218m    "
+            elif int(printtab[i]) <= 4:
+                code_couleur = "\x1b[48;2;238;225;201m    "
+            elif int(printtab[i]) <= 8:
+                code_couleur = "\x1b[48;2;243;178;122m    "
+            printtab[i] = (code_couleur + str(printtab[i]) +"    \x1b[49m")
         elif int(printtab[i]) % 100 == int(printtab[i]):
-            printtab[i] = (" " + str(printtab[i]) + "  ")
+            if int(printtab[i]) <= 16:
+                code_couleur = "\x1b[48;2;246;150;100m    "
+            elif int(printtab[i]) <= 32:
+                code_couleur = "\x1b[48;2;247;126;95m    "
+            elif int(printtab[i]) <= 64:
+                code_couleur = "\x1b[48;2;247;95;59m    "
+            printtab[i] = (code_couleur + str(printtab[i]) + "   \x1b[49m")
         elif int(printtab[i]) % 1000 == int(printtab[i]):
-            printtab[i] = (" " + str(printtab[i]) + " ")
+            if int(printtab[i]) <= 128:
+                code_couleur = "\x1b[48;2;237;208;115m   "
+            elif int(printtab[i]) <= 256:
+                code_couleur = "\x1b[48;2;237;204;98m   "
+            elif int(printtab[i]) <= 512:
+                code_couleur = "\x1b[48;2;237;201;80m   "
+            printtab[i] = (code_couleur + str(printtab[i])+"   \x1b[49m")
         elif int(printtab[i]) % 10000 == int(printtab[i]):
-            printtab[i] = (" " + str(printtab[i]) + "")
+            if int(printtab[i]) <= 1024:
+                code_couleur = "\x1b[48;2;237;197;63m   "
+            elif int(printtab[i]) <= 2048:
+                code_couleur = "\x1b[48;2;237;194;46m   "
+            elif int(printtab[i]) >= 2045:
+                code_couleur = "\x1b[48;2;60;58;51m   "
+            printtab[i] = (code_couleur + str(printtab[i])+"  \x1b[49m")
         else:
-            printtab[i] = ("" + str(printtab[i]) + "")
+            code_couleur = "\x1b[48;2;60;58;51m  "
+            printtab[i] = (code_couleur + str(printtab[i])+"  \x1b[49m")
 
     if SIEZ < 16:
         print2048()
-
+    characterrandom = ["♥","¸","?","✂","♛"]
+    characterchosen = characterrandom[randint(0,len(characterrandom)-1)]
     opretation_n = (45+(9*(SIEZ>=16))-(SIEZ*3))//2-1
     opretation_t = (260-(SIEZ*10))//2
     if opretation_n>0:
         print("\n"*(opretation_n))
-    print(" "*(opretation_t)+ "♥_________",end="")
+    print(" "*(opretation_t)+ characterchosen + "_________",end="")
     for _ in range (SIEZ-1):
         print("__________" , end = "")
-    print('♥'+" "*(opretation_t))
+    print(characterchosen +" "*(opretation_t))
     for j in range(SIEZ):
         print(" "*(opretation_t),end="")
         for _ in range (SIEZ):
             print("|         " , end = "")
         print("|\n"+" "*(opretation_t),end="")
         for i in range (SIEZ - 1):
-            print("|  {}  ".format(printtab[get1DCoord(j,i)]), end = "")
-        print("|  {}  |".format(printtab[get1DCoord(j,SIEZ-1)]))
+            print("|{}".format(printtab[get1DCoord(j,i)]), end = "")
+        print("|{}|".format(printtab[get1DCoord(j,SIEZ-1)]))
 
         print(" "*(opretation_t),end="")
         for _ in range (SIEZ - 1):
@@ -240,7 +260,7 @@ def addnumber(pos_libre : list, Gametab : list[int]) -> list:
     if _2or4 == 1:
         Gametab[pos] = 4
     else:
-        Gametab[pos] = 2
+        Gametab[pos] = 4
 
 
 def get1DCoord(i : int, j : int) -> int:

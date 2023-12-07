@@ -1,4 +1,4 @@
-tests : dict[str,list[int]] = {
+tests : dict = {
     ("fusion simple":
     [
         2,0,0,0,
