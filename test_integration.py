@@ -1,51 +1,51 @@
 tests : dict = {
-    ("fusion simple":
+    "fusion simple":
     [
         2,0,0,0,
         2,0,0,0,
         0,0,0,0,
         0,0,0,0
-    ])
-    ,("non fusion":
+    ]
+    ,"non fusion":
     [
         4,2,0,0,
         0,0,0,0,
         0,0,0,0,
         0,0,0,0
-    ])
-    ,("non fusion éloignée":
+    ]
+    ,"non fusion éloignée":
     [
         0,2,0,4,
         0,0,0,0,
         0,0,0,0,
         0,0,0,0
-    ])
-    ,("fusion éloignée":
+    ]
+    ,"fusion éloignée":
     [
         2,0,0,0,
         0,0,0,0,
         0,0,0,0,
         2,0,0,0
-    ])
-    ,("double fusion":
+    ]
+    ,"double fusion":
     [
         0,0,0,2,
         0,0,0,2,
         0,0,0,2,
         0,0,0,2
-    ])
-    ,("decalage vers le bas":
+    ]
+    ,"decalage vers le bas":
     [
         0,0,0,2,
         0,0,0,4,
         0,0,0,2,
         0,0,0,0
-    ])
-    ,("décalage vers la gauche et fusion":
+    ]
+    ,"décalage vers la gauche et fusion":
     [
         0,0,0,0,
         0,0,0,0,
         0,0,0,0,
         0,4,2,2
-    ])
+    ]
     }
