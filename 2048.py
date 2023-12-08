@@ -3,7 +3,7 @@ import keyboard
 import os
 from time import *
 from _2048txt import print2048
-SIEZ: int = 8
+SIEZ: int = 512
 
 def print_grid_2048(Gametab : list[int]):
     os.system("cls")
