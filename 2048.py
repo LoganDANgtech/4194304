@@ -3,7 +3,7 @@ import keyboard
 import os
 from time import *
 from _2048txt import print2048
-SIEZ: int = 512
+SIEZ: int = 4
 
 def print_grid_2048(Gametab : list[int]):
     os.system("cls")
@@ -248,7 +248,7 @@ def create_grid(Gametab : list[int]) -> list:
 
 def turn(nb_modif : int , Gametab : list[int]) -> bool:
     pos_libre = []
-    if not(chck_pos_libre(pos_libre , Gametab)) and left(Gametab, True)==right(Gametab, True)==up(Gametab, True)==down(Gametab, True)==0:
+    if not(chck_pos_libre(pos_libre , Gametab)) and left(Gametab)==right(Gametab)==up(Gametab)==down(Gametab)==0:
         return False
     if nb_modif > 0:
         if len(pos_libre)==SIEZ**2:
